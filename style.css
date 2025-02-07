@@ -88,9 +88,13 @@ p{
     }
     .card{
         grid-template-columns: 1fr 1fr;
+        padding: 20px;
     }
     .fisso{
         display: none;
+    }
+    .titolo{
+        padding: 30px;
     }
 }
 @media screen and (max-width: 767px){
@@ -99,5 +103,11 @@ p{
     }
     .card{
         grid-template-columns: 1fr;
+        padding: 20px;
+        margin-top: 0px;
+        padding-top: 0;
+    }
+    .titolo{
+        padding: 30px;
     }
 }
