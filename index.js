@@ -155,4 +155,128 @@ backtotop.addEventListener('click', function topFunction() {
   $('html, body').animate({scrollTop:0}, 'slow');
   // window.scrollTo({top: 0, behavior: 'smooth'}); // For Chrome, Firefox, IE and Opera
 });
+// Riferimenti agli elementi della search bar
+const searchInput = document.getElementById("search");
+const searchButton = document.getElementById("bottone");
 
+// Funzione di ricerca
+function cercaTerremoti() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    const descElement = card.querySelector(".luogo");
+    const desc = descElement ? descElement.textContent.toLowerCase() : "";
+
+    const magnitudoElement = card.querySelector(".magnitudo") || card.querySelector(".magnitudoLeggero");
+    const magnitudo = magnitudoElement ? magnitudoElement.textContent.toLowerCase() : "N/A";
+
+    const latElement = card.querySelector("p:nth-child(4)");
+    const lat = latElement ? latElement.textContent.toLowerCase() : "";
+
+    const lonElement = card.querySelector("p:nth-child(5)");
+    const lon = lonElement ? lonElement.textContent.toLowerCase() : "";
+
+    const timeElement = card.querySelector("p:nth-child(2)");
+    const time = timeElement ? timeElement.textContent.toLowerCase() : "";
+
+    // Controlla se il termine di ricerca è presente in uno degli elementi
+    if (desc.includes(searchTerm) || magnitudo.includes(searchTerm) || lat.includes(searchTerm) || lon.includes(searchTerm) || time.includes(searchTerm)) {
+      card.style.display = "block"; 
+    } else {
+      card.style.display = "none"; 
+    }
+  });
+}
+// Evento sul pulsante di ricerca
+searchButton.addEventListener("click", cercaTerremoti);
+
+// Permette la ricerca anche premendo "Invio" nell'input
+searchInput.addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
+    cercaTerremoti();
+  }
+});
+var filtro2 = document.getElementById('due');
+// Funzione filtraggio per magnitudo 
+var z = 2;
+function filtroTerremoti() {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    const magnitudoElement = card.querySelector(".magnitudo") || card.querySelector(".magnitudoLeggero");
+    const magnitudo = magnitudoElement ? magnitudoElement.textContent.toLowerCase() : "N/A";
+
+    // Controlla se il termine di ricerca è presente in uno degli elementi
+    if (magnitudo >= z) {
+      card.style.display = "block"; 
+    } else {
+      card.style.display = "none"; 
+    }
+  });
+}
+filtro2.addEventListener("click", filtroTerremoti);
+filtro2.addEventListener('click', function(){
+  filtro2.classList.toggle('filtroAttivo');
+  filtro4.classList.remove('filtroAttivo');
+});
+
+// Filtro 4
+var filtro4 = document.getElementById('quattro');
+// Funzione filtraggio per magnitudo 
+var q = 4;
+function filtroTerremoti2() {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    const magnitudoElement = card.querySelector(".magnitudo") || card.querySelector(".magnitudoLeggero");
+    const magnitudo = magnitudoElement ? magnitudoElement.textContent.toLowerCase() : "N/A";
+
+    // Controlla se il termine di ricerca è presente in uno degli elementi
+    if (magnitudo >= q) {
+      card.style.display = "block"; 
+    } else {
+      card.style.display = "none"; 
+    }
+  });
+}
+filtro4.addEventListener("click", filtroTerremoti2);
+filtro4.addEventListener('click', function(){
+  filtro4.classList.toggle('filtroAttivo');
+  filtro2.classList.remove('filtroAttivo');
+});
+
+// Funzione reset per filtro valore numerico
+
+
+
+var cerca = document.getElementById('cerca');
+cerca.addEventListener('mouseover', function(){
+searchInput.classList.remove('nascosto');
+});
+$(".barra").mouseenter(function(){ 
+  $(this).animate({ 
+      width: "300" 
+  })
+});
+var x = 767,
+w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+if (w < x) {
+  console.log(w, 'true')
+  cerca.addEventListener('click', function(){
+    searchInput.classList.toggle('nascosto');
+    });
+    $(".barra").mouseenter(function(){ 
+      $(this).animate({ 
+          width: "200" 
+      });
+    })
+} else {
+  $(".barra").mouseenter(function(){ 
+    $(this).animate({ 
+        width: "300" 
+    })
+  });
+}
