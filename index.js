@@ -198,8 +198,32 @@ searchInput.addEventListener("keyup", function (event) {
   }
 });
 var filtro2 = document.getElementById('due');
+var filtro0 = document.getElementById('zero');
 // Funzione filtraggio per magnitudo 
 var z = 2;
+var k = 0;
+function filtroTerremoti0() {
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+
+    const magnitudoElement = card.querySelector(".magnitudo") || card.querySelector(".magnitudoLeggero");
+    const magnitudo = magnitudoElement ? magnitudoElement.textContent.toLowerCase() : "N/A";
+
+    // Controlla se il termine di ricerca è presente in uno degli elementi
+    if (magnitudo >= k) {
+      card.style.display = "block"; 
+    } else {
+      card.style.display = "none"; 
+    }
+  });
+}
+filtro0.addEventListener("click", filtroTerremoti0);
+filtro0.addEventListener('click', function(){
+  filtro0.classList.toggle('filtroAttivo');
+  filtro4.classList.remove('filtroAttivo');
+  filtro2.classList.remove('filtroAttivo');
+});
 function filtroTerremoti() {
   const cards = document.querySelectorAll(".card");
 
@@ -220,6 +244,7 @@ filtro2.addEventListener("click", filtroTerremoti);
 filtro2.addEventListener('click', function(){
   filtro2.classList.toggle('filtroAttivo');
   filtro4.classList.remove('filtroAttivo');
+  filtro0.classList.remove('filtroAttivo');
 });
 
 // Filtro 4
@@ -246,6 +271,7 @@ filtro4.addEventListener("click", filtroTerremoti2);
 filtro4.addEventListener('click', function(){
   filtro4.classList.toggle('filtroAttivo');
   filtro2.classList.remove('filtroAttivo');
+  filtro0.classList.remove('filtroAttivo');
 });
 
 // Funzione reset per filtro valore numerico
